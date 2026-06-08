@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing de mercado — junho 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --verde: #1A3C2E;
+    --verde-medio: #2E5C46;
+    --ouro: #f8e38c;
+    --ouro-escuro: #d7ae4d;
+    --branco: #FFFFFF;
+    --cinza-claro: #f4f2ee;
+    --texto: #1A1A1A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cinza-claro);
+    color: var(--texto);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .pagina {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--branco);
+    min-height: 100vh;
+  }
+
+  /* CABEÇALHO */
+  .cabecalho {
+    background: var(--verde);
+    padding: 32px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cabecalho::before {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 2px solid rgba(248,227,140,0.15);
+  }
+
+  .cabecalho::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid rgba(248,227,140,0.1);
+  }
+
+  .cab-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .cab-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--branco);
+    line-height: 1.1;
+  }
+
+  .cab-titulo span {
+    color: var(--ouro);
+  }
+
+  .cab-meta {
+    text-align: right;
+  }
+
+  .cab-data {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .cab-autor {
+    font-size: 12px;
+    color: var(--ouro);
+    font-weight: 500;
+  }
+
+  .cab-subtitulo {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.5;
+  }
+
+  /* IBOVESPA DESTAQUE */
+  .ibov-band {
+    background: var(--verde-medio);
+    display: flex;
+    gap: 0;
+  }
+
+  .ibov-item {
+    flex: 1;
+    padding: 12px 20px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ibov-item:last-child { border-right: none; }
+
+  .ibov-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .ibov-valor {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--branco);
+    font-weight: 700;
+  }
+
+  .ibov-var {
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .neg { color: #ff7b7b; }
+  .pos { color: #7be8b0; }
+
+  /* CORPO */
+  .corpo {
+    padding: 28px 40px 32px;
+  }
+
+  /* SEÇÃO */
+  .secao {
+    margin-bottom: 24px;
+  }
+
+  .secao-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--verde);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border-left: 3px solid var(--ouro-escuro);
+    padding-left: 10px;
+    margin-bottom: 12px;
+  }
+
+  /* CENÁRIO GLOBAL */
+  .cenario-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .cenario-card {
+    background: var(--cinza-claro);
+    border-radius: 6px;
+    padding: 14px 16px;
+    border-left: 3px solid transparent;
+  }
+
+  .cenario-card.cautela { border-left-color: #e8a87b; }
+  .cenario-card.oportunidade { border-left-color: #7be8b0; }
+  .cenario-card.atencao { border-left-color: #ff7b7b; }
+  .cenario-card.neutro { border-left-color: #b0b8c8; }
+
+  .cenario-titulo {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  .cenario-texto {
+    font-size: 12px;
+    color: var(--texto);
+    line-height: 1.55;
+  }
+
+  .cenario-fonte {
+    font-size: 10px;
+    color: #999;
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* CARTEIRAS */
+  .carteiras-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .carteira-bloco {
+    border: 1px solid #e8e4dd;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .carteira-header {
+    background: var(--verde);
+    padding: 8px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .carteira-nome {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ouro);
+    font-weight: 500;
+  }
+
+  .carteira-perf {
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .carteira-body {
+    padding: 10px 14px;
+  }
+
+  .acao-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px solid #f0ece6;
+    font-size: 11.5px;
+  }
+
+  .acao-linha:last-child { border-bottom: none; }
+
+  .acao-ticker {
+    font-weight: 600;
+    color: var(--verde);
+    font-family: 'DM Sans', monospace;
+    min-width: 60px;
+  }
+
+  .acao-nome {
+    color: #555;
+    flex: 1;
+    padding: 0 8px;
+  }
+
+  .acao-move {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  .entra { background: rgba(123,232,176,0.2); color: #1a7a4a; }
+  .sai { background: rgba(255,123,123,0.15); color: #b54040; }
+  .mantido { background: rgba(26,60,46,0.07); color: var(--verde-medio); }
+
+  /* CONSENSO */
+  .consenso-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .tick-card {
+    border: 1px solid #e8e4dd;
+    border-radius: 5px;
+    padding: 10px 12px;
+    text-align: center;
+    background: var(--branco);
+  }
+
+  .tick-ticker {
+    font-family: 'DM Sans', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--verde);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .tick-nome {
+    font-size: 9px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .tick-casas {
+    font-size: 10px;
+    color: #555;
+  }
+
+  /* CÂMBIO */
+  .cambio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .cambio-card {
+    background: var(--cinza-claro);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+
+  .cambio-moeda {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+    margin-bottom: 4px;
+  }
+
+  .cambio-base {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--verde);
+  }
+
+  .cambio-proj {
+    font-size: 10px;
+    color: #666;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  .cambio-proj strong { color: var(--verde-medio); }
+
+  /* THESIS */
+  .thesis-box {
+    background: var(--verde);
+    border-radius: 8px;
+    padding: 18px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .thesis-box::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    color: rgba(248,227,140,0.08);
+    position: absolute;
+    top: -20px;
+    left: 10px;
+    line-height: 1;
+  }
+
+  .thesis-texto {
+    font-size: 13px;
+    color: var(--branco);
+    line-height: 1.65;
+    position: relative;
+    z-index: 1;
+  }
+
+  .thesis-texto strong {
+    color: var(--ouro);
+  }
+
+  /* RODAPÉ */
+  .rodape {
+    background: var(--verde);
+    padding: 14px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .rodape-autor {
+    font-size: 11px;
+    color: var(--ouro);
+    font-weight: 500;
+  }
+
+  .rodape-disclaimer {
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.4);
+    max-width: 420px;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--ouro-escuro), transparent);
+    margin: 20px 0;
+    opacity: 0.3;
+  }
+
+  /* MINI INSIGHT */
+  .insights-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .insight-item {
+    flex: 1;
+    background: var(--cinza-claro);
+    border-radius: 6px;
+    padding: 12px 14px;
+    border-top: 2px solid var(--ouro-escuro);
+  }
+
+  .insight-icone {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .insight-titulo {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--verde);
+    margin-bottom: 4px;
+  }
+
+  .insight-corpo {
+    font-size: 11.5px;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  @media print {
+    body { background: white; }
+    .pagina { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="pagina">
+
+  <!-- CABEÇALHO -->
+  <div class="cabecalho">
+    <div class="cab-topo">
+      <div>
+        <div class="cab-titulo">Briefing de<br><span>mercado</span></div>
+      </div>
+      <div class="cab-meta">
+        <div class="cab-data">Junho 2026 · Preparado em 31/05/2026</div>
+        <div class="cab-autor">Ivan Vianna · CFP® · Arquiteto de patrimônio</div>
+      </div>
+    </div>
+    <div class="cab-subtitulo">
+      Síntese das carteiras recomendadas e posicionamento global das principais casas — BB Investimentos, Morgan Stanley e UBS — para orientar decisões de alocação em junho de 2026.
+    </div>
+  </div>
+
+  <!-- IBOVESPA BAND -->
+  <div class="ibov-band">
+    <div class="ibov-item">
+      <span class="ibov-label">Ibovespa em 29/05</span>
+      <span class="ibov-valor">173.787</span>
+      <span class="ibov-var neg">–7,22% em maio</span>
+    </div>
+    <div class="ibov-item">
+      <span class="ibov-label">Preço-alvo dez/26</span>
+      <span class="ibov-valor">205.000</span>
+      <span class="ibov-var pos">+18,0% de potencial</span>
+    </div>
+    <div class="ibov-item">
+      <span class="ibov-label">Ibovespa acum. 2026</span>
+      <span class="ibov-valor">+7,86%</span>
+      <span class="ibov-var" style="color:rgba(255,255,255,0.5)">máx. 52 sem: 199.354</span>
+    </div>
+    <div class="ibov-item">
+      <span class="ibov-label">Dólar spot</span>
+      <span class="ibov-valor">R$ 5,04</span>
+      <span class="ibov-var" style="color:rgba(255,255,255,0.5)">proj. MS: R$ 5,00 (2026)</span>
+    </div>
+    <div class="ibov-item">
+      <span class="ibov-label">S&P 500 · meta 2026</span>
+      <span class="ibov-valor">8.000 pts</span>
+      <span class="ibov-var pos">+12% · Morgan Stanley</span>
+    </div>
+  </div>
+
+  <!-- CORPO -->
+  <div class="corpo">
+
+    <!-- CENÁRIO GLOBAL -->
+    <div class="secao">
+      <div class="secao-titulo">Cenário global · principais vetores</div>
+      <div class="cenario-grid">
+        <div class="cenario-card oportunidade">
+          <div class="cenario-titulo">IA como motor de lucros</div>
+          <div class="cenario-texto">Investimento em capex de IA das 5 maiores techs dos EUA revisto de US$ 450 bi para US$ 800 bi em 2026 e US$ 1,16 tri em 2027. Sustenta lucros e ações — especialmente industriais, hiperescala e financeiro.</div>
+          <div class="cenario-fonte">Morgan Stanley Research · maio 2026</div>
+        </div>
+        <div class="cenario-card atencao">
+          <div class="cenario-titulo">Petróleo · equilíbrio frágil</div>
+          <div class="cenario-texto">Conflito no Oriente Médio (Estreito de Ormuz) mantém energia elevada no 4T26 mesmo com recuperação esperada em junho. Pressão inflacionária global persiste e adia cortes de juros nas principais economias.</div>
+          <div class="cenario-fonte">Morgan Stanley Research · maio 2026</div>
+        </div>
+        <div class="cenario-card cautela">
+          <div class="cenario-titulo">Crédito corporativo sob pressão</div>
+          <div class="cenario-texto">Empresas emitindo mais dívida para financiar IA. Maior oferta de títulos pressiona spreads — crédito deve ficar atrás de outras classes. Morgan Stanley recomenda underweight em crédito corporativo.</div>
+          <div class="cenario-fonte">Morgan Stanley Research · maio 2026</div>
+        </div>
+        <div class="cenario-card cautela">
+          <div class="cenario-titulo">Family offices revendo alocação</div>
+          <div class="cenario-texto">60% dos family offices globais planejam mudanças estratégicas nos próximos 12 meses — recorde desde 2020. Motivo: desconforto com dólar (47% se veem over-exposed). Resposta: ouro, outras moedas e diversificação geográfica.</div>
+          <div class="cenario-fonte">UBS Global Family Office Report · maio 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CÂMBIO -->
+    <div class="secao">
+      <div class="secao-titulo">Real e câmbio · projeções Morgan Stanley</div>
+      <div class="cambio-grid">
+        <div class="cambio-card">
+          <div class="cambio-moeda">USD/BRL · cenário base</div>
+          <div class="cambio-base">R$ 5,00</div>
+          <div class="cambio-proj">Projeção para 2026. Em 2027: <strong>R$ 4,80</strong>. No cenário otimista (consolidação fiscal pré-eleitoral), dólar pode chegar a <strong>R$ 4,50</strong> antes de outubro/26.</div>
+        </div>
+        <div class="cambio-card">
+          <div class="cambio-moeda">Real e eleições · dinâmica esperada</div>
+          <div class="cambio-base" style="font-size:15px; padding-top:2px">3T26 = prêmio</div>
+          <div class="cambio-proj">Perspectiva incorpora prêmio de risco eleitoral no 3T26, com recuperação modesta no 4T26. Real e peso chileno são as <strong>moedas preferidas da América Latina</strong> para o MS.</div>
+        </div>
+        <div class="cambio-card">
+          <div class="cambio-moeda">Dólar global · fraqueza persistente</div>
+          <div class="cambio-base" style="font-size:15px; padding-top:2px">Pressão em 2026</div>
+          <div class="cambio-proj">Inflação subjacente moderando nos EUA e cortes de juros esperados mantêm dólar fraco. Recuperação esperada apenas em <strong>2027</strong>, com retomada de crescimento americano.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CARTEIRAS JUNHO -->
+    <div class="secao">
+      <div class="secao-titulo">Carteiras BB Investimentos · junho 2026 · alterações</div>
+      <div class="carteiras-wrap">
+
+        <div class="carteira-bloco">
+          <div class="carteira-header">
+            <span class="carteira-nome">Fundamentalista</span>
+            <span class="carteira-perf pos">Acum. 2026: +7,38%</span>
+          </div>
+          <div class="carteira-body">
+            <div class="acao-linha">
+              <span class="acao-ticker">EMBJ3</span>
+              <span class="acao-nome">Embraer</span>
+              <span class="acao-move entra">entra</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">BBDC4</span>
+              <span class="acao-nome">Bradesco</span>
+              <span class="acao-move sai">sai</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">ALUP11</span>
+              <span class="acao-nome">Alupar</span>
+              <span class="acao-move mantido">mantido</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">AXIA3</span>
+              <span class="acao-nome">Axia Energia</span>
+              <span class="acao-move mantido">mantido</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">PETR4</span>
+              <span class="acao-nome">Petrobras</span>
+              <span class="acao-move mantido">mantido</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">ITUB4</span>
+              <span class="acao-nome">Itaú Unibanco</span>
+              <span class="acao-move mantido">mantido</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">VALE3</span>
+              <span class="acao-nome">Vale</span>
+              <span class="acao-move mantido">mantido</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">VBBR3</span>
+              <span class="acao-nome">Vibra Energia</span>
+              <span class="acao-move mantido">mantido</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">RENT3</span>
+              <span class="acao-nome">Localiza</span>
+              <span class="acao-move mantido">mantido</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">TEND3</span>
+              <span class="acao-nome">Tenda</span>
+              <span class="acao-move mantido">mantido</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="carteira-bloco">
+          <div class="carteira-header">
+            <span class="carteira-nome">BB Dividendos (jun–ago)</span>
+            <span class="carteira-perf pos">DY médio: 9,0%</span>
+          </div>
+          <div class="carteira-body">
+            <div class="acao-linha">
+              <span class="acao-ticker">ALOS3</span>
+              <span class="acao-nome">Allos · DY 11,9%</span>
+              <span class="acao-move entra">entra</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">ABEV3</span>
+              <span class="acao-nome">Ambev · DY 6,0%</span>
+              <span class="acao-move entra">entra</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">BBDC4</span>
+              <span class="acao-nome">Bradesco · DY 8,5%</span>
+              <span class="acao-move entra">entra</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">CXSE3</span>
+              <span class="acao-nome">Caixa Seguridade · 8,4%</span>
+              <span class="acao-move entra">entra</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">ITSA4</span>
+              <span class="acao-nome">Itaúsa · DY 9,4%</span>
+              <span class="acao-move entra">entra</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">TAEE11</span>
+              <span class="acao-nome">Taesa · DY 10,1%</span>
+              <span class="acao-move entra">entra</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">TIMS3</span>
+              <span class="acao-nome">Tim · DY 9,5%</span>
+              <span class="acao-move entra">entra</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">PETR4</span>
+              <span class="acao-nome">Petrobras · DY 10,4%</span>
+              <span class="acao-move mantido">mantido</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">BRAP4</span>
+              <span class="acao-nome">Bradespar · DY 7,9%</span>
+              <span class="acao-move mantido">mantido</span>
+            </div>
+            <div class="acao-linha">
+              <span class="acao-ticker">DIRR3</span>
+              <span class="acao-nome">Direcional · DY 7,7%</span>
+              <span class="acao-move mantido">mantido</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CONSENSO -->
+    <div class="secao">
+      <div class="secao-titulo">Tickers com maior convergência entre casas · maio/junho 2026</div>
+      <div class="consenso-grid">
+        <div class="tick-card">
+          <span class="tick-ticker">PETR4</span>
+          <span class="tick-nome">Petrobras</span>
+          <span class="tick-casas">BB-BI · Dividendos · ESG<br>Consenso de mercado</span>
+        </div>
+        <div class="tick-card">
+          <span class="tick-ticker">ITUB4</span>
+          <span class="tick-nome">Itaú Unibanco</span>
+          <span class="tick-casas">BB-BI · ESG · Itaú BBA<br>Morgan Stanley portfólio</span>
+        </div>
+        <div class="tick-card">
+          <span class="tick-ticker">VALE3</span>
+          <span class="tick-nome">Vale</span>
+          <span class="tick-casas">BB-BI · múltiplas casas<br>Consenso de mercado</span>
+        </div>
+        <div class="tick-card">
+          <span class="tick-ticker">VBBR3</span>
+          <span class="tick-nome">Vibra Energia</span>
+          <span class="tick-casas">BB-BI · ESG · Itaú BBA<br>Consenso de mercado</span>
+        </div>
+        <div class="tick-card">
+          <span class="tick-ticker">EMBJ3</span>
+          <span class="tick-nome">Embraer</span>
+          <span class="tick-casas">BB-BI (nova entrada)<br>Consenso maio/26</span>
+        </div>
+        <div class="tick-card">
+          <span class="tick-ticker">B3SA3</span>
+          <span class="tick-nome">B3</span>
+          <span class="tick-casas">BB-BI · ESG · Itaú BBA<br>Morgan Stanley portfólio</span>
+        </div>
+        <div class="tick-card">
+          <span class="tick-ticker">AXIA3</span>
+          <span class="tick-nome">Axia Energia</span>
+          <span class="tick-casas">BB-BI · Consenso<br>maio/26</span>
+        </div>
+        <div class="tick-card">
+          <span class="tick-ticker">SBSP3</span>
+          <span class="tick-nome">Sabesp</span>
+          <span class="tick-casas">BB-BI ESG · Consenso<br>mai/26 múltiplas casas</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- INSIGHTS -->
+    <div class="secao">
+      <div class="secao-titulo">Três leituras para o cliente</div>
+      <div class="insights-row">
+        <div class="insight-item">
+          <div class="insight-icone">🔄</div>
+          <div class="insight-titulo">Fluxo estrangeiro era tático</div>
+          <div class="insight-corpo">O rali de jan–mar/26 foi oportunístico, não estrutural. A reversão de abril/maio confirma: sem gatilho fiscal ou eleitoral claro, o fluxo recua. Junho exige seletividade, não exposição ampla a beta.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icone">💵</div>
+          <div class="insight-titulo">Dolarização faz sentido</div>
+          <div class="insight-corpo">O movimento de family offices — reduzindo imóveis, aumentando ouro e diversificando moedas — é o sinal mais relevante de 2026. Para o cliente brasileiro com patrimônio concentrado em real, é o momento de conversação sobre internacionalização.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icone">⚡</div>
+          <div class="insight-titulo">Energia + exportadores = proteção</div>
+          <div class="insight-corpo">Petróleo alto prejudica custo de capital, mas beneficia exportadores de energia (PETR4, VBBR3, AXIA3) e empresas com receita dolarizada (EMBJ3, VALE3). A lógica da carteira fundamentalista de junho está alinhada com a tese do Morgan Stanley.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- THESIS BOX -->
+    <div class="thesis-box">
+      <div class="thesis-texto">
+        O consenso de mercado para junho de 2026 pode ser resumido em uma frase: <strong>construtivo, mas não complacente.</strong> O Ibovespa segue com desconto real frente a pares emergentes e tem preço-alvo de 205 mil pontos para o final do ano. Mas o caminho passa por seletividade setorial, exposição a exportadores e qualidade de balanço — não por alta generalizada. Para o patrimônio dos seus clientes, isso significa revisitar a concentração em ativos domésticos e abrir espaço para <strong>diversificação geográfica, proteção cambial e empresas com receita atrelada ao exterior.</strong> O segundo semestre vai ser construído caso a caso, não em bloco.
+      </div>
+    </div>
+
+  </div><!-- /corpo -->
+
+  <!-- RODAPÉ -->
+  <div class="rodape">
+    <div class="rodape-autor">Ivan Vianna · CFP® · Planejador financeiro · Arquiteto de patrimônio<br>
+    <span style="color:rgba(255,255,255,0.4); font-weight:300; font-size:10px">ivanviannafinancas.com.br · /in/ivanlvianna · CNPJ 56.099.913/0001-61</span></div>
+    <div class="rodape-disclaimer">Material informativo elaborado a partir de relatórios públicos e pesquisas de mercado. Não constitui recomendação de investimento. Rentabilidade passada não é garantia de resultado futuro. Elaborado em 31/05/2026.</div>
+  </div>
+
+</div>
+</body>
+</html>
