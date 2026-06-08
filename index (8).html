@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patrimônio Global Intelligence Report — Junho 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #1A3A2A;
+    --verde-mid: #234D38;
+    --ouro: #C4A44A;
+    --ouro-light: #F2E8C8;
+    --branco: #FAFAF7;
+    --cinza: #3A3A3A;
+    --cinza-mid: #777;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--branco); color: var(--cinza); }
+
+  /* HERO */
+  .hero {
+    background: var(--verde);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,164,74,.12);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,164,74,.08);
+  }
+  .hero-inner { max-width: 760px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-block;
+    font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--ouro); border: 1px solid rgba(196,164,74,.35);
+    padding: 6px 16px; border-radius: 2px; margin-bottom: 40px;
+  }
+  .hero-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 6vw, 64px);
+    font-weight: 600; color: #fff; line-height: 1.1; margin-bottom: 8px;
+  }
+  .hero-titulo span { color: var(--ouro); }
+  .hero-subtitulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-style: italic; color: rgba(255,255,255,.65);
+    margin-bottom: 48px; line-height: 1.4;
+  }
+  .hero-fontes {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 56px;
+  }
+  .fonte-tag {
+    font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.15);
+    padding: 5px 12px; border-radius: 2px;
+  }
+  .hero-preco { margin-bottom: 8px; }
+  .preco-label { font-size: 11px; color: rgba(255,255,255,.4); letter-spacing: .08em; display: block; margin-bottom: 4px; }
+  .preco-valor {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px; font-weight: 700; color: var(--ouro); line-height: 1; display: block;
+  }
+  .preco-detalhe { font-size: 12px; color: rgba(255,255,255,.4); display: block; margin-top: 6px; margin-bottom: 28px; }
+  .btn-cta {
+    display: inline-block;
+    background: var(--ouro); color: #fff;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    padding: 18px 48px; border-radius: 2px; text-decoration: none;
+    transition: opacity .2s; cursor: pointer; border: none;
+  }
+  .btn-cta:hover { opacity: .88; }
+  .btn-sub { display: block; font-size: 11px; font-weight: 400; opacity: .7; margin-top: 8px; letter-spacing: 0; text-transform: none; }
+
+  /* NÚMEROS */
+  .numeros { background: var(--ouro-light); padding: 56px 40px; }
+  .numeros-grid {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 32px; max-width: 900px; margin: 0 auto;
+  }
+  .numero-item { text-align: center; }
+  .numero-valor {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 700; color: var(--verde); line-height: 1; display: block;
+  }
+  .numero-desc { font-size: 12px; color: #666; margin-top: 8px; line-height: 1.5; }
+
+  /* SEÇÕES */
+  .secao { padding: 72px 40px; }
+  .secao-inner { max-width: 760px; margin: 0 auto; }
+  .secao-label { font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ouro); margin-bottom: 16px; }
+  .secao-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 40px); font-weight: 600; color: var(--verde);
+    margin-bottom: 20px; line-height: 1.2;
+  }
+  .secao p { font-size: 16px; color: var(--cinza); margin-bottom: 16px; line-height: 1.7; }
+
+  /* ITENS DE CONTEÚDO */
+  .itens { display: flex; flex-direction: column; gap: 0; margin: 36px 0; }
+  .item { display: flex; gap: 24px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid rgba(196,164,74,.2); }
+  .item:last-child { border-bottom: none; }
+  .item-num {
+    flex-shrink: 0; width: 40px; height: 40px;
+    background: var(--verde); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: var(--ouro);
+  }
+  .item-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 600; color: var(--verde); margin-bottom: 6px;
+  }
+  .item-desc { font-size: 14px; color: #555; line-height: 1.6; margin: 0; }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--verde); border-radius: 4px; padding: 32px 40px; margin: 36px 0;
+  }
+  .callout p {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 20px; color: rgba(255,255,255,.88); line-height: 1.6; margin: 0;
+  }
+  .callout cite { display: block; margin-top: 12px; font-size: 12px; font-style: normal; color: var(--ouro); }
+
+  /* PERFIS */
+  .perfis { display: flex; flex-direction: column; gap: 12px; margin: 28px 0; }
+  .perfil { background: #EAF0EC; border-radius: 4px; padding: 20px 24px; }
+  .perfil-titulo { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--verde); font-weight: 600; margin-bottom: 6px; }
+  .perfil-desc { font-size: 13px; color: #555; margin: 0; line-height: 1.5; }
+
+  /* CHECKLIST */
+  .checklist { display: flex; flex-direction: column; gap: 10px; margin: 28px 0; }
+  .check-item { display: flex; gap: 12px; align-items: flex-start; }
+  .check-icon { flex-shrink: 0; width: 20px; height: 20px; background: var(--ouro); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .check-icon::after { content: '✓'; font-size: 11px; color: #fff; font-weight: 700; }
+  .check-text { font-size: 15px; color: var(--cinza); line-height: 1.5; }
+
+  /* AUTOR */
+  .autor { display: flex; align-items: center; gap: 20px; background: #F0F0EC; border-radius: 4px; padding: 28px 32px; margin-top: 32px; }
+  .autor-inicial {
+    flex-shrink: 0; width: 52px; height: 52px; background: var(--verde); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--ouro);
+  }
+  .autor-nome { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--verde); font-weight: 600; }
+  .autor-bio { font-size: 13px; color: #666; margin: 0; line-height: 1.5; }
+
+  /* CTA FINAL */
+  .cta-final { background: var(--verde); padding: 80px 40px; text-align: center; }
+  .cta-final-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 44px); font-weight: 600; color: #fff;
+    margin-bottom: 12px; line-height: 1.2;
+  }
+  .cta-final-sub {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 18px; color: rgba(255,255,255,.65);
+    max-width: 480px; margin: 0 auto 40px; line-height: 1.5;
+  }
+
+  /* RODAPÉ */
+  .rodape { text-align: center; padding: 28px 24px; font-size: 12px; color: #999; line-height: 1.6; }
+  .divider { border: none; border-top: 1px solid rgba(196,164,74,.2); margin: 0; }
+
+  /* MOBILE */
+  @media (max-width: 640px) {
+    .hero { padding: 60px 24px; min-height: auto; }
+    .numeros { padding: 40px 24px; }
+    .numeros-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .secao { padding: 48px 24px; }
+    .callout { padding: 24px; }
+    .autor { flex-direction: column; text-align: center; }
+    .cta-final { padding: 56px 24px; }
+    .item { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Patrimônio Global · Intelligence Report · Junho 2026</div>
+    <h1 class="hero-titulo">O que os grandes gestores<br>estão <span>vendo</span></h1>
+    <p class="hero-subtitulo">— e o que isso muda no seu patrimônio</p>
+    <div class="hero-fontes">
+      <span class="fonte-tag">BTG Pactual</span>
+      <span class="fonte-tag">BB Investimentos</span>
+      <span class="fonte-tag">Morgan Stanley</span>
+      <span class="fonte-tag">UBS Family Offices</span>
+    </div>
+    <div class="hero-preco">
+      <span class="preco-label">Investimento</span>
+      <span class="preco-valor">R$ 67,00</span>
+      <span class="preco-detalhe">Acesso imediato · PDF + Relatório visual</span>
+    </div>
+    <a href="https://pay.hotmart.com/H106107081G" class="btn-cta">
+      Acessar o Intelligence Report
+      <span class="btn-sub">Pagamento seguro · Entrega imediata</span>
+    </a>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<div class="numeros">
+  <div class="numeros-grid">
+    <div class="numero-item">
+      <span class="numero-valor">−7,22%</span>
+      <span class="numero-desc">Ibovespa em maio de 2026, após alta de +25% em dólares no 1T26</span>
+    </div>
+    <div class="numero-item">
+      <span class="numero-valor">205 mil</span>
+      <span class="numero-desc">Preço-alvo do Ibovespa para dezembro — potencial existe, caminho exige seletividade</span>
+    </div>
+    <div class="numero-item">
+      <span class="numero-valor">60%</span>
+      <span class="numero-desc">dos family offices globais vão mudar a alocação em 2026 — recorde histórico (UBS)</span>
+    </div>
+    <div class="numero-item">
+      <span class="numero-valor">11,5%</span>
+      <span class="numero-desc">Dividend yield médio anualizado da carteira BTG — equivalente a 104,9% do CDI</span>
+    </div>
+  </div>
+</div>
+
+<!-- O QUE ESTÁ DENTRO -->
+<section class="secao" style="background:#fff;">
+  <div class="secao-inner">
+    <div class="secao-label">O conteúdo</div>
+    <h2 class="secao-titulo">Quatro fontes. Uma leitura orientada para decisão.</h2>
+    <p>O desafio não é ter acesso à informação — os relatórios institucionais são públicos. O desafio é entender o que eles significam para a sua realidade patrimonial.</p>
+
+    <div class="itens">
+      <div class="item">
+        <div class="item-num">01</div>
+        <div>
+          <div class="item-titulo">Visão Patrimonial VIDA — análise proprietária</div>
+          <p class="item-desc">Nível de convicção por classe de ativo para junho de 2026 — internacionalização, liquidez, ações EUA, renda fixa Brasil, ações Brasil e imóveis. Com racional e frase de posicionamento assinada.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-num">02</div>
+        <div>
+          <div class="item-titulo">Consensos e divergências para o segundo semestre</div>
+          <p class="item-desc">O que BTG Pactual, BB Investimentos, Morgan Stanley e UBS convergem — e onde divergem. As teses que merecem atenção independentemente do cenário eleitoral.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-num">03</div>
+        <div>
+          <div class="item-titulo">Projeções para dólar, juros e bolsa</div>
+          <p class="item-desc">Ibovespa com preço-alvo de 205 mil pontos. Dólar entre R$ 4,50,00 e R$ 5,20,00 dependendo do cenário eleitoral. S&P 500 com meta de 8.000 pontos. O que cada faixa significa para a sua alocação.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-num">04</div>
+        <div>
+          <div class="item-titulo">Carteiras revisadas — BTG Pactual e BB Investimentos</div>
+          <p class="item-desc">Todas as mudanças de junho: entradas, saídas e racionais. 10SIM, Dividendos, BDRs, Small Caps e FIIs do BTG. Fundamentalista e Dividendos do BB. Os ativos com maior convergência entre as casas.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-num">05</div>
+        <div>
+          <div class="item-titulo">O que os family offices globais estão fazendo</div>
+          <p class="item-desc">60% vão alterar alocação em 2026 — recorde histórico. Ouro em US$ 4.509,00 (+37,1% em 12M). Emergentes ex-China em +64,9%. Para onde vai o dinheiro das maiores fortunas do mundo.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-num">06</div>
+        <div>
+          <div class="item-titulo">O que fazer agora — por perfil patrimonial</div>
+          <p class="item-desc">Implicações práticas para quem tem patrimônio até R$ 500 mil, até R$ 2,00 milhões, para empresários e para quem está próximo da aposentadoria. Não é teoria. É o próximo passo concreto.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>"Os investidores devem ser otimistas, mas não complacentes."</p>
+      <cite>— Serena Tang, estrategista-chefe de ativos cruzados · Morgan Stanley, maio 2026</cite>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PARA QUEM É -->
+<section class="secao">
+  <div class="secao-inner">
+    <div class="secao-label">Adequação</div>
+    <h2 class="secao-titulo">Uma mesma análise. Implicações diferentes para cada perfil.</h2>
+
+    <div class="perfis">
+      <div class="perfil">
+        <div class="perfil-titulo">Executivo · R$ 2,00 a R$ 5,00 milhões</div>
+        <p class="perfil-desc">Entende o cenário macro mas não tem clareza sobre como calibrar a exposição internacional diante do risco eleitoral do 3T26. O relatório traduz os movimentos institucionais para a sua faixa patrimonial.</p>
+      </div>
+      <div class="perfil">
+        <div class="perfil-titulo">Empresário · patrimônio concentrado na empresa</div>
+        <p class="perfil-desc">Zero ou baixa diversificação cambial. O cenário de junho tem implicações diretas que a maioria das análises genéricas não endereça. Concentração em um único ativo somada a zero diversificação cambial é o perfil de maior vulnerabilidade.</p>
+      </div>
+      <div class="perfil">
+        <div class="perfil-titulo">Médico ou profissional liberal · 100% em ativos brasileiros</div>
+        <p class="perfil-desc">Alta renda, sem estrutura internacional. O relatório explica o que construir primeiro — e por que não existe momento perfeito para começar.</p>
+      </div>
+      <div class="perfil">
+        <div class="perfil-titulo">Próximo da aposentadoria · dependente do CDI</div>
+        <p class="perfil-desc">O BTG projeta Selic recuando para 10,50% em 2027. A janela atual de carrego não fica aberta para sempre. O relatório mostra como construir uma camada de renda em múltiplas moedas.</p>
+      </div>
+    </div>
+
+    <div class="checklist">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--verde);margin-bottom:8px;">Você receberá</div>
+      <div class="check-item"><div class="check-icon"></div><span class="check-text">Visão Patrimonial VIDA — análise proprietária com nível de convicção por classe de ativo</span></div>
+      <div class="check-item"><div class="check-icon"></div><span class="check-text">Consenso institucional de BTG Pactual, BB Investimentos, Morgan Stanley e UBS</span></div>
+      <div class="check-item"><div class="check-icon"></div><span class="check-text">Movimentos completos das carteiras recomendadas de junho</span></div>
+      <div class="check-item"><div class="check-icon"></div><span class="check-text">Cenários para dólar, juros e bolsa no segundo semestre</span></div>
+      <div class="check-item"><div class="check-icon"></div><span class="check-text">Caso real anonimizado — empresário com R$ 6,00 milhões e 92% concentrado no Brasil</span></div>
+      <div class="check-item"><div class="check-icon"></div><span class="check-text">Implicações práticas por perfil patrimonial — o que fazer agora</span></div>
+    </div>
+
+    <div class="autor">
+      <div class="autor-inicial">IV</div>
+      <div>
+        <div class="autor-nome">Ivan Vianna, CFP®</div>
+        <p class="autor-bio">Planejador financeiro especializado em patrimônio global e internacionalização de ativos para investidores brasileiros. Autor da série Patrimônio Global no LinkedIn. O relatório é elaborado a partir de relatórios institucionais públicos, com leitura orientada para decisões patrimoniais práticas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+  <div class="secao-inner">
+    <h2 class="cta-final-titulo">O que os grandes gestores estão vendo — agora você pode ver também.</h2>
+    <p class="cta-final-sub">Quatro fontes. Uma leitura. Implicações práticas para o seu patrimônio em junho.</p>
+    <a href="https://pay.hotmart.com/H106107081G" class="btn-cta">
+      Acessar o Intelligence Report
+      <span class="btn-sub">R$ 67,00 · Acesso imediato · Pagamento seguro</span>
+    </a>
+  </div>
+</div>
+
+<!-- RODAPÉ -->
+<div class="rodape">
+  Material informativo elaborado a partir de relatórios públicos. Não constitui recomendação de investimento. Elaborado em 01/06/2026.<br>
+  Ivan Vianna, CFP® · Planejamento Patrimonial Global
+</div>
+
+</body>
+</html>
